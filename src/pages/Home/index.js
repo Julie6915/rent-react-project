@@ -43,6 +43,8 @@ const tabItems = [
         path:'/home/profile'
     },
 ]
+// 在路由切换时应该让TabBar菜单栏高亮
+
 export default class Home extends React.Component {
     constructor(props) {
       super(props);
@@ -55,6 +57,15 @@ export default class Home extends React.Component {
         // fullScreen: false,
       };
     }
+    // 路由信息通过props传递，路由切换在组件更新时可以获取到，生命周期钩子
+    componentDidUpdate(prevProps){
+      if(prevProps.location.pathname !== this.props.location.pathname){
+        this.setState({
+            selectedTab:this.props.location.pathname
+        })
+      }
+    }
+
     // 定义一个方法 渲染TabBar.item
     renderTabBarItem(){
         return tabItems.map(item => {
